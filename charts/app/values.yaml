@@ -30,6 +30,7 @@ service:
 ingress:
   # ingress.enabled -- Enable ingress resource.
   enabled: false
+  class: "nginx"
   # ingress.annotations -- Configures annotations for the ingress.
   annotations: {}
     # kubernetes.io/ingress.class: nginx
