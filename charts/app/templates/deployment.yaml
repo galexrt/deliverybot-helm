@@ -10,7 +10,7 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
-{{ .Values.deploymentStrategy | indent 4 }}
+{{ toYaml .Values.deploymentStrategy | indent 4 }}
   selector:
     matchLabels:
 {{ include "app.matchLabels" . | indent 6 }}
