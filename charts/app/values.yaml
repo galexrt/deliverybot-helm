@@ -17,6 +17,9 @@ image:
 # imagePullSecrets -- Defines secrets to use for pulling docker images.
 imagePullSecrets: []
 
+deploymentStrategy:
+  type: RollingUpdate
+
 service:
   # service.enabled -- Enable service resource.
   enabled: true

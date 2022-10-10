@@ -9,6 +9,8 @@ metadata:
 {{ include "app.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+{{ .Values.deploymentStrategy | indent 4 }}
   selector:
     matchLabels:
 {{ include "app.matchLabels" . | indent 6 }}
