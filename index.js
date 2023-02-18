@@ -35,8 +35,8 @@ async function status(state) {
       log_url: url,
       target_url: url,
       headers: {
-        accept: 'application/vnd.github.ant-man-preview+json'
-      }
+        accept: "application/vnd.github.ant-man-preview+json",
+      },
     });
   } catch (error) {
     core.warning(`Failed to set deployment status: ${error.message}`);
@@ -93,7 +93,7 @@ function getValueFiles(files) {
   if (!Array.isArray(fileList)) {
     return [];
   }
-  return fileList.filter(f => !!f);
+  return fileList.filter((f) => !!f);
 }
 
 function getInput(name, options) {
@@ -101,7 +101,7 @@ function getInput(name, options) {
   const deployment = context.payload.deployment;
   let val = core.getInput(name.replace("_", "-"), {
     ...options,
-    required: false
+    required: false,
   });
   if (deployment) {
     if (deployment[name]) val = deployment[name];
@@ -123,7 +123,7 @@ function renderFiles(files, data) {
     `rendering value files [${files.join(",")}] with: ${JSON.stringify(data)}`
   );
   const tags = ["${{", "}}"];
-  const promises = files.map(async file => {
+  const promises = files.map(async (file) => {
     const content = await readFile(file, { encoding: "utf8" });
     const rendered = Mustache.render(content, data, {}, tags);
     await writeFile(file, rendered);
@@ -132,17 +132,14 @@ function renderFiles(files, data) {
 }
 
 /**
- * Makes a delete command for compatibility between helm 2 and 3.
+ * Makes a delete command for helm 3.
  *
  * @param {string} helm
  * @param {string} namespace
  * @param {string} release
  */
 function deleteCmd(helm, namespace, release) {
-  if (helm === "helm3") {
-    return ["delete", "-n", namespace, release];
-  }
-  return ["delete", "--purge", release];
+  return ["delete", "-n", namespace, release];
 }
 
 /**
@@ -188,7 +185,6 @@ async function run() {
     core.debug(`param: repository = "${repository}"`);
     core.debug(`param: atomic = "${atomic}"`);
 
-
     // Setup command options and arguments.
     const args = [
       "upgrade",
@@ -200,13 +196,9 @@ async function run() {
     ];
 
     // Per https://helm.sh/docs/faq/#xdg-base-directory-support
-    if (helm === "helm3") {
-      process.env.XDG_DATA_HOME = "/root/.helm/"
-      process.env.XDG_CACHE_HOME = "/root/.helm/"
-      process.env.XDG_CONFIG_HOME = "/root/.helm/"
-    } else {
-      process.env.HELM_HOME = "/root/.helm/"
-    }
+    process.env.XDG_DATA_HOME = "/root/.helm/";
+    process.env.XDG_CACHE_HOME = "/root/.helm/";
+    process.env.XDG_CONFIG_HOME = "/root/.helm/";
 
     if (dryRun) args.push("--dry-run");
     if (appName) args.push(`--set=app.name=${appName}`);
@@ -214,7 +206,7 @@ async function run() {
     if (chartVersion) args.push(`--version=${chartVersion}`);
     if (timeout) args.push(`--timeout=${timeout}`);
     if (repository) args.push(`--repo=${repository}`);
-    valueFiles.forEach(f => args.push(`--values=${f}`));
+    valueFiles.forEach((f) => args.push(`--values=${f}`));
     args.push("--values=./values.yml");
 
     // Special behaviour is triggered if the track is labelled 'canary'. The
@@ -248,14 +240,14 @@ async function run() {
     if (removeCanary) {
       core.debug(`removing canary ${appName}-canary`);
       await exec.exec(helm, deleteCmd(helm, namespace, `${appName}-canary`), {
-        ignoreReturnCode: true
+        ignoreReturnCode: true,
       });
     }
 
     // Actually execute the deployment here.
     if (task === "remove") {
       await exec.exec(helm, deleteCmd(helm, namespace, release), {
-        ignoreReturnCode: true
+        ignoreReturnCode: true,
       });
     } else {
       await exec.exec(helm, args);

@@ -8,8 +8,8 @@ RUN apk add --no-cache ca-certificates \
     --repository http://dl-3.alpinelinux.org/alpine/edge/community/ \
     jq curl bash nodejs aws-cli && \
     curl -L ${BASE_URL}/${HELM_3_FILE} |tar xvz && \
-    mv linux-amd64/helm /usr/bin/helm3 && \
-    chmod +x /usr/bin/helm3 && \
+    mv linux-amd64/helm /usr/bin/helm && \
+    chmod +x /usr/bin/helm && \
     rm -rf linux-amd64
 
 ENV PYTHONPATH "/usr/lib/python3.10/site-packages/"
