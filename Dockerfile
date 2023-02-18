@@ -13,6 +13,7 @@ RUN apk add --no-cache ca-certificates \
     mv linux-amd64/helm /usr/bin/helm && \
     chmod +x /usr/bin/helm && \
     rm -rf linux-amd64 && \
+    ln -sfn /usr/bin/helm /usr/bin/helm3 && \
     cd /usr/src && \
     npm install
 
