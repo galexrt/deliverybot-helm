@@ -106,3 +106,6 @@ workers: []
 #  - name: delayed-job
 #    command: ["rails", "jobs:work"]
 #    enableProbes: true
+
+# -- Extra objects to deploy (value evaluated as a template)
+extraObjects: []
