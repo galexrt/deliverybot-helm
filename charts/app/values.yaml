@@ -109,3 +109,9 @@ workers: []
 
 # -- Extra objects to deploy (value evaluated as a template)
 extraObjects: []
+
+# -- Extra volumes to add to the deployment
+volumes: []
+
+# -- Extra volume mounts to add to the deployment
+volumeMounts: []
