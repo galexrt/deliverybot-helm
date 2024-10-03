@@ -68,7 +68,7 @@ jobs:
   deployment:
     runs-on: 'ubuntu-latest'
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
 
     - name: 'Deploy'
       uses: 'deliverybot/helm@v1'
@@ -109,7 +109,7 @@ jobs:
   deployment:
     runs-on: 'ubuntu-latest'
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
 
     - name: 'Deploy'
       uses: 'deliverybot/helm@v1'
