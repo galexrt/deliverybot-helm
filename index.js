@@ -193,6 +193,7 @@ async function run() {
       "--install",
       "--wait",
       `--namespace=${namespace}`,
+      "--create-namespace",
     ];
 
     // Per https://helm.sh/docs/faq/#xdg-base-directory-support
